@@ -7,7 +7,7 @@ import time
 from typing import Tuple
 
 
-class SN_curve_ISO_6336: # Clasennamen immer CamelCase SnCurveIso6336
+class SnCurveIso6336:
     '''
     Represents individual material data for gear calculations according to 
     ISO 6336
@@ -79,7 +79,7 @@ class SN_curve_ISO_6336: # Clasennamen immer CamelCase SnCurveIso6336
     # endregion
 
     def __repr__(self):
-        return f'SN_curve_ISO_6336({self.name},{self.N_F_stat},{self.N_F_d})'
+        return f'SnCurveIso6336({self.name},{self.N_F_stat},{self.N_F_d})'
 
     def calc_slope(self) -> Tuple[float]:
         """
@@ -338,21 +338,21 @@ class SN_curve_ISO_6336: # Clasennamen immer CamelCase SnCurveIso6336
 
 # create list with standard materials of COB
 materials_COB = []
-materials_COB.append(SN_curve_ISO_6336('AT-01_18CrNiMo7-6(COB)_LN_190-3', 1e3,3e6,2520,1050,1e5,5e7,2400,1550,0,0))
-materials_COB.append(SN_curve_ISO_6336('AT-02_18CrNiMo7-6(COB)_LN_190-3_lim_pit_perm', 1e3,3e6,2520,1050,6e5,1e9,2400,1550,1,0))
-materials_COB.append(SN_curve_ISO_6336('AT-03_18CrNiMo7-6(COB)_LN_190-3_shot_peened_LN_523-1', 1e3,3e6,2520,1400,1e5,5e7,2400,1800,0,0))
-materials_COB.append(SN_curve_ISO_6336('AT-04_18CrNiMo7-6(COB)_LN_190-3_lim_pit_perm_shot_peened_LN_523-1', 1e3,3e6,2520,1400,6e5,1e9,2400,1800,1,0))
-materials_COB.append(SN_curve_ISO_6336('AT-05_20MnCr5(COB)_LN_190-2', 1e3,3e6,2520,1050,1e5,5e7,2400,1550,0,0))
-materials_COB.append(SN_curve_ISO_6336('AT-06_20MnCr5(COB)_LN_190-2_lim_pit_perm', 1e3,3e6,2520,1050,6e5,1e9,2400,1550,1,0))
-materials_COB.append(SN_curve_ISO_6336('AT-07_20MnCr5(COB)_LN_190-2_shot_peened_LN_523-1', 1e3,3e6,2520,1400,1e5,5e7,2400,1800,0,0))
-materials_COB.append(SN_curve_ISO_6336('AT-08_20MnCr5(COB)_LN_190-2_lim_pit_perm_shot_peened_LN_523-1', 1e3,3e6,2520,1400,6e5,1e9,2400,1800,1,0))
-materials_COB.append(SN_curve_ISO_6336('AT-09_42CrMo4(COB)_LN_194-1', 1e3,3e6,1440,900,1e5,2e6,1430,1100,0,0))
-materials_COB.append(SN_curve_ISO_6336('AT-10_18CrNiMo7-6(COB)_LN_190-3_shot_peened_LN_523-2', 1e3,3e6,2520,1250,1e5,5e7,2400,1700,0,0))
-materials_COB.append(SN_curve_ISO_6336('AT-11_18CrNiMo7-6(COB)_LN_190-3_lim_pit_perm_shot_peened_LN_523-2', 1e3,3e6,2520,1250,6e5,1e9,2400,1700,1,0))
-materials_COB.append(SN_curve_ISO_6336('AT-12_20MnCr5(COB)_LN_190-2_shot_peened_LN_523-2', 1e3,3e6,2520,1250,1e5,5e7,2400,1700,0,0))
-materials_COB.append(SN_curve_ISO_6336('AT-13_20MnCr5(COB)_LN_190-2 _lim_pit_perm_shot_peened_LN_523-2', 1e3,3e6,2520,1250,6e5,1e9,2400,1700,1,0))
-materials_COB.append(SN_curve_ISO_6336('AT-14_42CrMo4(COB)_LN 191-1_root_49_HRC_root_flank_56HRC', 1e3,3e6,1800,720,1e5,5e7,1952,1220,0,0))
-materials_COB.append(SN_curve_ISO_6336('AT-15_42CrMo4(COB)_LN 191-1_root_49_HRC_root_flank_56HRC_lim_pit_perm', 1e3,3e6,1800,720,6e5,1e9,1952,1220,1,0))
+materials_COB.append(SnCurveIso6336('AT-01_18CrNiMo7-6(COB)_LN_190-3', 1e3,3e6,2520,1050,1e5,5e7,2400,1550,0,0))
+materials_COB.append(SnCurveIso6336('AT-02_18CrNiMo7-6(COB)_LN_190-3_lim_pit_perm', 1e3,3e6,2520,1050,6e5,1e9,2400,1550,1,0))
+materials_COB.append(SnCurveIso6336('AT-03_18CrNiMo7-6(COB)_LN_190-3_shot_peened_LN_523-1', 1e3,3e6,2520,1400,1e5,5e7,2400,1800,0,0))
+materials_COB.append(SnCurveIso6336('AT-04_18CrNiMo7-6(COB)_LN_190-3_lim_pit_perm_shot_peened_LN_523-1', 1e3,3e6,2520,1400,6e5,1e9,2400,1800,1,0))
+materials_COB.append(SnCurveIso6336('AT-05_20MnCr5(COB)_LN_190-2', 1e3,3e6,2520,1050,1e5,5e7,2400,1550,0,0))
+materials_COB.append(SnCurveIso6336('AT-06_20MnCr5(COB)_LN_190-2_lim_pit_perm', 1e3,3e6,2520,1050,6e5,1e9,2400,1550,1,0))
+materials_COB.append(SnCurveIso6336('AT-07_20MnCr5(COB)_LN_190-2_shot_peened_LN_523-1', 1e3,3e6,2520,1400,1e5,5e7,2400,1800,0,0))
+materials_COB.append(SnCurveIso6336('AT-08_20MnCr5(COB)_LN_190-2_lim_pit_perm_shot_peened_LN_523-1', 1e3,3e6,2520,1400,6e5,1e9,2400,1800,1,0))
+materials_COB.append(SnCurveIso6336('AT-09_42CrMo4(COB)_LN_194-1', 1e3,3e6,1440,900,1e5,2e6,1430,1100,0,0))
+materials_COB.append(SnCurveIso6336('AT-10_18CrNiMo7-6(COB)_LN_190-3_shot_peened_LN_523-2', 1e3,3e6,2520,1250,1e5,5e7,2400,1700,0,0))
+materials_COB.append(SnCurveIso6336('AT-11_18CrNiMo7-6(COB)_LN_190-3_lim_pit_perm_shot_peened_LN_523-2', 1e3,3e6,2520,1250,6e5,1e9,2400,1700,1,0))
+materials_COB.append(SnCurveIso6336('AT-12_20MnCr5(COB)_LN_190-2_shot_peened_LN_523-2', 1e3,3e6,2520,1250,1e5,5e7,2400,1700,0,0))
+materials_COB.append(SnCurveIso6336('AT-13_20MnCr5(COB)_LN_190-2 _lim_pit_perm_shot_peened_LN_523-2', 1e3,3e6,2520,1250,6e5,1e9,2400,1700,1,0))
+materials_COB.append(SnCurveIso6336('AT-14_42CrMo4(COB)_LN 191-1_root_49_HRC_root_flank_56HRC', 1e3,3e6,1800,720,1e5,5e7,1952,1220,0,0))
+materials_COB.append(SnCurveIso6336('AT-15_42CrMo4(COB)_LN 191-1_root_49_HRC_root_flank_56HRC_lim_pit_perm', 1e3,3e6,1800,720,6e5,1e9,1952,1220,1,0))
 
 
 materials_ISO = []
