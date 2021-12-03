@@ -81,7 +81,8 @@ class SnCurveIso6336:
     def __repr__(self):
         return f'SnCurveIso6336({self.name},{self.N_F_stat},{self.N_F_d})'
 
-    def calc_slope(self) -> Tuple[float]:
+    @property
+    def slope(self) -> Tuple[float]:
         """
         Calculates the exponent (slope) of the S-N curve for the tooth root and the flank
 
@@ -93,35 +94,37 @@ class SnCurveIso6336:
         
         # MS: Methoden ohne Parameter und "billigen berechnungen" besser als ReadOnly Property und Name 
         #     ohne Imperativ, also nur slope
-        # Tipp: - abkürzung log = np.log und np. in formeln weg lassen
-        #       - self-attribute in loc variablen schreiben und self. in formeln weg lassen
-        #       - Leerzeichen vor und nach mathematischen operatoren. immer!  
-        p_F = (np.log(self.N_F_d)-np.log(self.N_F_stat))/(np.log(self.sig_FP_stat)-np.log(self.sig_FE))
-        p_H = (np.log(self.N_H_d)-np.log(self.N_H_stat))/(np.log(self.sig_HP_stat)-np.log(self.sig_H_lim))
 
-        # bsp mit Abkürzungen
-        # p_F = (log(N_F_d) - log(N_F_stat)) / (log(sig_FP_stat) - log(sig_FE))
-        # p_H = (log(N_H_d) - log(N_H_stat)) / (log(sig_HP_stat) - log(sig_H_lim))
-        
-        # MS: == 1 -> Kein Vergleich mit ints. lim_pit_perm ist bereits ein bool. Besser: if self.lim_pit_perm: '
-        if self.lim_pit_perm == 1: # when limited pitting is permitted s-n curve for flank has two different slopes
-            p_H = (np.log(1e7)-np.log(self.N_H_stat))/(np.log(self.sig_HP_stat)-np.log(0.5*(self.sig_H_lim+self.sig_HP_stat)))
-            p_H_lim_pit = (np.log(1e9)-np.log(1e7))/(np.log(0.5*(self.sig_H_lim+self.sig_HP_stat))-np.log(self.sig_H_lim))
+        log = np.log
+        N_F_d = self.N_F_d
+        N_F_stat = self.N_F_stat
+        sig_FP_stat = self.sig_FP_stat
+        sig_FE = self.sig_FE
+        N_H_d = self.N_F_d
+        N_H_stat = self.N_F_stat
+        sig_HP_stat = self.sig_FP_stat
+        sig_H_lim = self.sig_FE
+
+        p_F = (log(N_F_d) - log(N_F_stat)) / (log(sig_FP_stat) - log(sig_FE))
+        p_H = (log(N_H_d) - log(N_H_stat)) / (log(sig_HP_stat) - log(sig_H_lim))
+
+        if self.lim_pit_perm: # when limited pitting is permitted s-n curve for flank has two different slopes
+            p_H = (log(1e7) - log(N_H_stat)) / (log(sig_HP_stat) - log(0.5 * (sig_H_lim + sig_HP_stat)))
+            p_H_lim_pit = (log(1e9) - log(1e7)) / (log(0.5 * (sig_H_lim + sig_HP_stat)) - log(sig_H_lim))
         else:
-            p_H_lim_pit = '-' # MS: warum ein string? besser: -1. Kann gut geprüft werden, ist schneller und das Rückgabetupel bleibt numerisch
+            p_H_lim_pit = -1 
         
-        if self.red_life_fac == 1:
-            p_F_red_life_fac = (np.log(1e10)-np.log(self.N_F_d))/(np.log(self.sig_FE)-np.log(0.85*self.sig_FE))
-            p_H_red_life_fac = (np.log(1e10)-np.log(self.N_H_d))/(np.log(self.sig_H_lim)-np.log(0.85*self.sig_H_lim))
+        if self.red_life_fac:
+            p_F_red_life_fac = (log(1e10) - log(N_F_d)) / (log(sig_FE) - log(0.85 * sig_FE))
+            p_H_red_life_fac = (log(1e10) - log(N_H_d)) / (log(sig_H_lim) - log(0.85 * sig_H_lim))
         else:
-            p_F_red_life_fac = '-' # MS: warum ein string? besser: -1. Kann gut geprüft werden, ist schneller und das Rückgabetupel bleibt numerisch
-            p_H_red_life_fac = '-' # MS: warum ein string? besser: -1. Kann gut geprüft werden, ist schneller und das Rückgabetupel bleibt numerisch
+            p_F_red_life_fac = -1
+            p_H_red_life_fac = -1 
                    
         return p_F, p_H, p_H_lim_pit, p_F_red_life_fac, p_H_red_life_fac
     
-    
-    def as_dict(self) -> dict:
-        # MS: Convention bei solchen methoden: to_dict()
+    @staticmethod
+    def to_dict(self) -> dict:
         """
         Transforms material entry to a dictionary, used in function "export_data"'''
 
@@ -366,7 +369,7 @@ def export_data(materials: list):
         materials (list): list of SN_curve_ISO_6336 objects
     """
     
-    df = pd.DataFrame([x.as_dict() for x in materials])
+    df = pd.DataFrame([x.to_dict() for x in materials])
     df.to_excel('out.xlsx', index=False)
 
 
@@ -490,4 +493,5 @@ def plot_SN_curve_foot(materials: list):
     plt.show()
 
 y = materials_COB[3]
-y.write_dat_file()
+print(y)
+# y.write_dat_file()
